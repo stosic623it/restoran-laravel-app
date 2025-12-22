@@ -18,3 +18,10 @@ Route::middleware('auth')->group(function () {
 });
 
 require __DIR__.'/auth.php';
+
+
+Route::resource('categories', App\Http\Controllers\CategoryController::class);
+
+Route::resource('food', App\Http\Controllers\FoodController::class);
+
+Route::resource('orders', App\Http\Controllers\OrderController::class);

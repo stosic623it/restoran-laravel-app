@@ -1,0 +1,41 @@
+created:
+    - app/Http/Controllers/CategoryController.php
+    - app/Http/Controllers/FoodController.php
+    - app/Http/Controllers/OrderController.php
+    - database/factories/CategoryFactory.php
+    - database/factories/FoodFactory.php
+    - database/factories/OrderFactory.php
+    - database/migrations/2025_12_22_142625_create_categories_table.php
+    - database/migrations/2025_12_22_142626_create_food_table.php
+    - database/migrations/2025_12_22_142627_create_orders_table.php
+    - app/Models/Category.php
+    - app/Models/Food.php
+    - app/Models/Order.php
+    - tests/Feature/Http/Controllers/CategoryControllerTest.php
+    - tests/Feature/Http/Controllers/FoodControllerTest.php
+    - tests/Feature/Http/Controllers/OrderControllerTest.php
+    - app/Http/Requests/CategoryStoreRequest.php
+    - app/Http/Requests/CategoryUpdateRequest.php
+    - app/Http/Requests/FoodStoreRequest.php
+    - app/Http/Requests/FoodUpdateRequest.php
+    - app/Http/Requests/OrderStoreRequest.php
+    - app/Http/Requests/OrderUpdateRequest.php
+    - resources/views/category/index.blade.php
+    - resources/views/category/create.blade.php
+    - resources/views/category/show.blade.php
+    - resources/views/category/edit.blade.php
+    - resources/views/food/index.blade.php
+    - resources/views/food/create.blade.php
+    - resources/views/food/show.blade.php
+    - resources/views/food/edit.blade.php
+    - resources/views/order/index.blade.php
+    - resources/views/order/create.blade.php
+    - resources/views/order/show.blade.php
+    - resources/views/order/edit.blade.php
+updated:
+    - routes/web.php
+models:
+    User: { name: string, email: string, email_verified_at: 'timestamp nullable default:NULL', password: string, remember_token: 'string:100 nullable default:NULL' }
+    Category: { name: 'string:100' }
+    Food: { name: 'string:150', description: text, price: integer, category_id: 'id foreign:Category' }
+    Order: { user_id: 'id foreign:User', total_price: integer, status: 'string:50' }

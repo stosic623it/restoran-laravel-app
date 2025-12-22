@@ -1,0 +1,23 @@
+models:
+  Category:
+    name: string:100
+
+  Food:
+    name: string:150
+    description: text
+    price: integer
+    category_id: id foreign:Category
+
+  Order:
+    user_id: id foreign:User
+    total_price: integer
+    status: string:50
+
+controllers:
+  Category:
+    resource: web
+  Food:
+    resource: web
+  Order:
+    resource: web
+
