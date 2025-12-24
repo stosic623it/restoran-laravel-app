@@ -9,8 +9,11 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
 
+
 class FoodController extends Controller
 {
+
+
     public function index(Request $request): Response
     {
         $food = Food::all();
@@ -63,4 +66,12 @@ class FoodController extends Controller
 
         return redirect()->route('food.index');
     }
+
+    public function menu()
+    {
+        $foods = Food::with('category')->get();
+
+        return view('menu', compact('foods'));
+    }
+
 }
