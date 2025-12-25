@@ -10,7 +10,6 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-
 Route::get('/', [HomeController::class, 'home'])->name('home');
 Route::get('/menu', [FoodController::class, 'menu'])->name('menu');
 Route::get('/cart', [OrderController::class, 'cart'])->name('cart');
@@ -28,13 +27,14 @@ Route::middleware('auth')->group(function () {
 
     Route::post('/order/add/{food}', [OrderController::class, 'add'])->name('order.add');
     Route::post('/order/confirm', [OrderController::class, 'confirm'])->name('order.confirm');
+
+    Route::resource('categories', App\Http\Controllers\CategoryController::class);
+    
+    Route::resource('food', App\Http\Controllers\FoodController::class);
+    
+    Route::resource('orders', App\Http\Controllers\OrderController::class);
+    Route::resource('order', OrderController::class);
 });
 
 require __DIR__.'/auth.php';
 
-
-Route::resource('categories', App\Http\Controllers\CategoryController::class);
-
-Route::resource('food', App\Http\Controllers\FoodController::class);
-
-Route::resource('orders', App\Http\Controllers\OrderController::class);

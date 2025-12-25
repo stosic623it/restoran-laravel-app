@@ -16,11 +16,8 @@ class OrderController extends Controller
 
     public function index(Request $request)
     {
-        $orders = Order::all();
-
-        return view('order.index', [
-            'orders' => $orders,
-        ]);
+        $orders = Order::latest()->paginate(10);
+        return view('order.index', compact('orders'));
     }
 
     public function create(Request $request)
@@ -30,11 +27,16 @@ class OrderController extends Controller
 
     public function store(OrderStoreRequest $request)
     {
-        $order = Order::create($request->validated());
-
-        $request->session()->flash('order.id', $order->id);
-
-        return redirect()->route('orders.index');
+         $request->validate([
+            'user_id' => 'required|integer|min:1',
+            'total_price' => 'required|integer|min:0',
+            'status' => 'required|in:pending,processing,completed,cancelled',
+        ]);
+        
+        $order = Order::create($request->all());
+        
+        return redirect()->route('order.show', $order->id)
+            ->with('success', 'Narudzbina uspesno kreirana!');
     }
 
     public function show(Request $request, Order $order)
@@ -53,18 +55,24 @@ class OrderController extends Controller
 
     public function update(OrderUpdateRequest $request, Order $order)
     {
-        $order->update($request->validated());
-
-        $request->session()->flash('order.id', $order->id);
-
-        return redirect()->route('orders.index');
+       $request->validate([
+            'user_id' => 'required|integer|min:1',
+            'total_price' => 'required|integer|min:0',
+            'status' => 'required|in:pending,processing,completed,cancelled',
+        ]);
+        
+        $order->update($request->all());
+        
+        return redirect()->route('order.show', $order->id)
+            ->with('success', 'Narudzbina uspesno izmenjena!');
     }
 
     public function destroy(Request $request, Order $order)
     {
         $order->delete();
-
-        return redirect()->route('orders.index');
+        
+        return redirect()->route('order.index')
+            ->with('success', 'Narudzbina obrisana uspesno!');
     }
 
     // USE CASE - dodavanje hrane u porudzbinu
