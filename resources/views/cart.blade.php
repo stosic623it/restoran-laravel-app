@@ -1,13 +1,13 @@
 <x-app-layout>
     <div class="max-w-4xl mx-auto py-10 px-4">
 
-        <h1 class="text-3xl font-bold mb-6">🛒 Your Order</h1>
+        <h1 class="text-3xl font-bold mb-6">🛒 Tvoja narudzbina</h1>
 
         @if (!$order || $order->foods->isEmpty())
-        <p class="text-gray-500">Your cart is empty.</p>
+        <p class="text-gray-500">Tvoja korpa je prazna.</p>
         <a href="{{ route('menu') }}"
             class="inline-block mt-4 text-blue-600 hover:underline">
-            ← Back to menu
+            ← Nazad na meni
         </a>
         @else
 
@@ -20,7 +20,7 @@
             @endforeach
 
             <div class="flex justify-between text-xl font-bold mt-4">
-                <span>Total:</span>
+                <span>Ukupno:</span>
                 <span>{{ $order->total_price }} RSD</span>
             </div>
         </div>
@@ -29,7 +29,7 @@
             @csrf
             <button
                 class="bg-green-600 hover:bg-green-700 text-white px-8 py-3 rounded-lg text-lg font-semibold">
-                Confirm Order
+                Potvrdi porudzbinu
             </button>
         </form>
 
