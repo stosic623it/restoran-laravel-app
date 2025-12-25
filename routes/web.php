@@ -4,11 +4,14 @@ use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\FoodController;
 use App\Http\Controllers\OrderController;
+use App\Http\Controllers\HomeController;
 
 Route::get('/', function () {
     return view('welcome');
 });
 
+
+Route::get('/', [HomeController::class, 'home'])->name('home');
 Route::get('/menu', [FoodController::class, 'menu'])->name('menu');
 Route::get('/cart', [OrderController::class, 'cart'])->name('cart');
 Route::post('/order/confirm', [OrderController::class, 'confirm'])->name('order.confirm');

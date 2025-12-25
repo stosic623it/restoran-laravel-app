@@ -5,10 +5,10 @@ namespace App\Http\Controllers;
 use App\Http\Requests\FoodStoreRequest;
 use App\Http\Requests\FoodUpdateRequest;
 use App\Models\Food;
+use App\Models\Category;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
-
 
 class FoodController extends Controller
 {
@@ -66,12 +66,24 @@ class FoodController extends Controller
 
         return redirect()->route('food.index');
     }
+    // USE CASE
 
-    public function menu()
-    {
-        $foods = Food::with('category')->get();
 
-        return view('menu', compact('foods'));
+public function menu(Request $request)
+{
+    $categories = Category::all();
+
+    $foods = Food::with('category');
+
+    if ($request->category) {
+        $foods->where('category_id', $request->category);
     }
+
+    return view('menu', [
+        'foods' => $foods->get(),
+        'categories' => $categories,
+    ]);
+}
+
 
 }

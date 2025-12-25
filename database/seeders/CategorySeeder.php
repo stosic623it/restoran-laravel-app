@@ -15,6 +15,7 @@ class CategorySeeder extends Seeder
     {
         Category::create(['name' => 'Pizza']);
         Category::create(['name' => 'Pasta']);
-        Category::create(['name' => 'Dessert']);
+        Category::create(['name' => 'Salata']);
+        Category::create(['name' => 'Desert']);
     }
 }
