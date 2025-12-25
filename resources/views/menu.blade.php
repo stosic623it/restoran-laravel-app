@@ -3,9 +3,9 @@
 
         <!-- Naziv restorana -->
         <div class="text-center mb-10">
-            <h1 class="text-4xl font-bold text-gray-800">🍽️ Restaurant Menu</h1>
+            <h1 class="text-4xl font-bold text-gray-800">🍽️ Meni Restorana "Ukusni Zalogaj"</h1>
             <p class="text-gray-500 mt-2">
-                Fresh food, quality ingredients, fast service
+                Ukusna hrana, kvalitetno dostoprimstvo i brzo narucivanje
             </p>
         </div>
 
@@ -13,7 +13,7 @@
             <div class="text-right mb-6">
                 <a href="{{ route('cart') }}"
                    class="bg-gray-800 text-white px-4 py-2 rounded hover:bg-gray-900">
-                    🛒 View Cart
+                    🛒 Korpa
                 </a>
             </div>
         @endauth
@@ -30,14 +30,14 @@
             <!-- SIDEBAR -->
             <aside class="lg:col-span-1 bg-white border rounded-lg shadow p-5 h-fit">
                 <h3 class="text-xl font-semibold text-gray-800 mb-4">
-                    Categories
+                    Kategorije
                 </h3>
 
                 <ul class="space-y-2">
                     <li>
                         <a href="{{ route('menu') }}"
                            class="block px-3 py-2 rounded hover:bg-gray-100 text-gray-700">
-                            All
+                            Sve
                         </a>
                     </li>
 
