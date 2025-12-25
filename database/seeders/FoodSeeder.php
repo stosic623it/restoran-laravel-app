@@ -2,8 +2,8 @@
 
 namespace Database\Seeders;
 
-use App\Models\Food;
 use App\Models\Category;
+use App\Models\Food;
 use Illuminate\Database\Seeder;
 
 class FoodSeeder extends Seeder

@@ -4,19 +4,17 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\OrderStoreRequest;
 use App\Http\Requests\OrderUpdateRequest;
-use App\Models\Order;
-use Illuminate\Http\RedirectResponse;
-use Illuminate\Http\Request;
-use Illuminate\View\View;
 use App\Models\Food;
+use App\Models\Order;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
 class OrderController extends Controller
 {
-
     public function index(Request $request)
     {
         $orders = Order::latest()->paginate(10);
+
         return view('order.index', compact('orders'));
     }
 
@@ -27,14 +25,14 @@ class OrderController extends Controller
 
     public function store(OrderStoreRequest $request)
     {
-         $request->validate([
+        $request->validate([
             'user_id' => 'required|integer|min:1',
             'total_price' => 'required|integer|min:0',
             'status' => 'required|in:pending,processing,completed,cancelled',
         ]);
-        
+
         $order = Order::create($request->all());
-        
+
         return redirect()->route('order.show', $order->id)
             ->with('success', 'Narudzbina uspesno kreirana!');
     }
@@ -55,14 +53,14 @@ class OrderController extends Controller
 
     public function update(OrderUpdateRequest $request, Order $order)
     {
-       $request->validate([
+        $request->validate([
             'user_id' => 'required|integer|min:1',
             'total_price' => 'required|integer|min:0',
             'status' => 'required|in:pending,processing,completed,cancelled',
         ]);
-        
+
         $order->update($request->all());
-        
+
         return redirect()->route('order.show', $order->id)
             ->with('success', 'Narudzbina uspesno izmenjena!');
     }
@@ -70,7 +68,7 @@ class OrderController extends Controller
     public function destroy(Request $request, Order $order)
     {
         $order->delete();
-        
+
         return redirect()->route('order.index')
             ->with('success', 'Narudzbina obrisana uspesno!');
     }
@@ -86,7 +84,7 @@ class OrderController extends Controller
             [
                 'total_price' => 0,
             ]
-    );
+        );
 
         $order->foods()->attach($food->id);
         $order->total_price += $food->price;
@@ -118,6 +116,4 @@ class OrderController extends Controller
 
         return view('cart', compact('order'));
     }
-
-
 }

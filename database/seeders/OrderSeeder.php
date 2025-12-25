@@ -4,7 +4,6 @@ namespace Database\Seeders;
 
 use App\Models\Order;
 use App\Models\User;
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
 class OrderSeeder extends Seeder
@@ -17,9 +16,9 @@ class OrderSeeder extends Seeder
         $user = User::first();
 
         Order::create([
-        'user_id' => $user->id,
-        'total_price' => 800,
-        'status' => 'created',
+            'user_id' => $user->id,
+            'total_price' => 800,
+            'status' => 'created',
         ]);
     }
 }

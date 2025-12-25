@@ -40,8 +40,7 @@ class Order extends Model
     }
 
     public function foods()
-    {   
+    {
         return $this->belongsToMany(Food::class);
     }
-
 }

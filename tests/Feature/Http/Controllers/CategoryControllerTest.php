@@ -14,125 +14,119 @@ use Tests\TestCase;
  */
 final class CategoryControllerTest extends TestCase
 {
-//     use AdditionalAssertions, RefreshDatabase, WithFaker;
+    //     use AdditionalAssertions, RefreshDatabase, WithFaker;
 
-//     #[Test]
-//     public function index_displays_view(): void
-//     {
-//         $categories = Category::factory()->count(3)->create();
+    //     #[Test]
+    //     public function index_displays_view(): void
+    //     {
+    //         $categories = Category::factory()->count(3)->create();
 
-//         $response = $this->get(route('categories.index'));
+    //         $response = $this->get(route('categories.index'));
 
-//         $response->assertOk();
-//         $response->assertViewIs('category.index');
-//         $response->assertViewHas('categories', $categories);
-//     }
+    //         $response->assertOk();
+    //         $response->assertViewIs('category.index');
+    //         $response->assertViewHas('categories', $categories);
+    //     }
 
+    //     #[Test]
+    //     public function create_displays_view(): void
+    //     {
+    //         $response = $this->get(route('categories.create'));
 
-//     #[Test]
-//     public function create_displays_view(): void
-//     {
-//         $response = $this->get(route('categories.create'));
+    //         $response->assertOk();
+    //         $response->assertViewIs('category.create');
+    //     }
 
-//         $response->assertOk();
-//         $response->assertViewIs('category.create');
-//     }
+    //     #[Test]
+    //     public function store_uses_form_request_validation(): void
+    //     {
+    //         $this->assertActionUsesFormRequest(
+    //             \App\Http\Controllers\CategoryController::class,
+    //             'store',
+    //             \App\Http\Requests\CategoryStoreRequest::class
+    //         );
+    //     }
 
+    //     #[Test]
+    //     public function store_saves_and_redirects(): void
+    //     {
+    //         $name = fake()->name();
 
-//     #[Test]
-//     public function store_uses_form_request_validation(): void
-//     {
-//         $this->assertActionUsesFormRequest(
-//             \App\Http\Controllers\CategoryController::class,
-//             'store',
-//             \App\Http\Requests\CategoryStoreRequest::class
-//         );
-//     }
+    //         $response = $this->post(route('categories.store'), [
+    //             'name' => $name,
+    //         ]);
 
-//     #[Test]
-//     public function store_saves_and_redirects(): void
-//     {
-//         $name = fake()->name();
+    //         $categories = Category::query()
+    //             ->where('name', $name)
+    //             ->get();
+    //         $this->assertCount(1, $categories);
+    //         $category = $categories->first();
 
-//         $response = $this->post(route('categories.store'), [
-//             'name' => $name,
-//         ]);
+    //         $response->assertRedirect(route('categories.index'));
+    //         $response->assertSessionHas('category.id', $category->id);
+    //     }
 
-//         $categories = Category::query()
-//             ->where('name', $name)
-//             ->get();
-//         $this->assertCount(1, $categories);
-//         $category = $categories->first();
+    //     #[Test]
+    //     public function show_displays_view(): void
+    //     {
+    //         $category = Category::factory()->create();
 
-//         $response->assertRedirect(route('categories.index'));
-//         $response->assertSessionHas('category.id', $category->id);
-//     }
+    //         $response = $this->get(route('categories.show', $category));
 
+    //         $response->assertOk();
+    //         $response->assertViewIs('category.show');
+    //         $response->assertViewHas('category', $category);
+    //     }
 
-//     #[Test]
-//     public function show_displays_view(): void
-//     {
-//         $category = Category::factory()->create();
+    //     #[Test]
+    //     public function edit_displays_view(): void
+    //     {
+    //         $category = Category::factory()->create();
 
-//         $response = $this->get(route('categories.show', $category));
+    //         $response = $this->get(route('categories.edit', $category));
 
-//         $response->assertOk();
-//         $response->assertViewIs('category.show');
-//         $response->assertViewHas('category', $category);
-//     }
+    //         $response->assertOk();
+    //         $response->assertViewIs('category.edit');
+    //         $response->assertViewHas('category', $category);
+    //     }
 
+    //     #[Test]
+    //     public function update_uses_form_request_validation(): void
+    //     {
+    //         $this->assertActionUsesFormRequest(
+    //             \App\Http\Controllers\CategoryController::class,
+    //             'update',
+    //             \App\Http\Requests\CategoryUpdateRequest::class
+    //         );
+    //     }
 
-//     #[Test]
-//     public function edit_displays_view(): void
-//     {
-//         $category = Category::factory()->create();
+    //     #[Test]
+    //     public function update_redirects(): void
+    //     {
+    //         $category = Category::factory()->create();
+    //         $name = fake()->name();
 
-//         $response = $this->get(route('categories.edit', $category));
+    //         $response = $this->put(route('categories.update', $category), [
+    //             'name' => $name,
+    //         ]);
 
-//         $response->assertOk();
-//         $response->assertViewIs('category.edit');
-//         $response->assertViewHas('category', $category);
-//     }
+    //         $category->refresh();
 
+    //         $response->assertRedirect(route('categories.index'));
+    //         $response->assertSessionHas('category.id', $category->id);
 
-//     #[Test]
-//     public function update_uses_form_request_validation(): void
-//     {
-//         $this->assertActionUsesFormRequest(
-//             \App\Http\Controllers\CategoryController::class,
-//             'update',
-//             \App\Http\Requests\CategoryUpdateRequest::class
-//         );
-//     }
+    //         $this->assertEquals($name, $category->name);
+    //     }
 
-//     #[Test]
-//     public function update_redirects(): void
-//     {
-//         $category = Category::factory()->create();
-//         $name = fake()->name();
+    //     #[Test]
+    //     public function destroy_deletes_and_redirects(): void
+    //     {
+    //         $category = Category::factory()->create();
 
-//         $response = $this->put(route('categories.update', $category), [
-//             'name' => $name,
-//         ]);
+    //         $response = $this->delete(route('categories.destroy', $category));
 
-//         $category->refresh();
+    //         $response->assertRedirect(route('categories.index'));
 
-//         $response->assertRedirect(route('categories.index'));
-//         $response->assertSessionHas('category.id', $category->id);
-
-//         $this->assertEquals($name, $category->name);
-//     }
-
-
-//     #[Test]
-//     public function destroy_deletes_and_redirects(): void
-//     {
-//         $category = Category::factory()->create();
-
-//         $response = $this->delete(route('categories.destroy', $category));
-
-//         $response->assertRedirect(route('categories.index'));
-
-//         $this->assertModelMissing($category);
-//     }
+    //         $this->assertModelMissing($category);
+    //     }
 }

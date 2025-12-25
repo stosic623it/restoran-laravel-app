@@ -6,7 +6,6 @@ use App\Models\Order;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
-use JMac\Testing\Traits\AdditionalAssertions;
 use PHPUnit\Framework\Attributes\Test;
 use Tests\TestCase;
 
@@ -80,7 +79,7 @@ class OrderControllerTest extends TestCase
     // {
     //     $order = Order::factory()->create();
     //     $user = User::factory()->create();
-        
+
     //     $data = [
     //         'user_id' => $user->id,
     //         'total_price' => 8888,
@@ -90,9 +89,9 @@ class OrderControllerTest extends TestCase
     //     $response = $this->put(route('order.update', $order), $data);
 
     //     $order->refresh();
-        
+
     //     $response->assertRedirect(route('order.show', $order));
-        
+
     //     $this->assertEquals($user->id, $order->user_id);
     //     $this->assertEquals(8888, $order->total_price);
     //     $this->assertEquals('completed', $order->status);

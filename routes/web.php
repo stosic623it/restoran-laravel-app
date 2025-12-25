@@ -1,11 +1,11 @@
 <?php
 
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\FoodController;
+use App\Http\Controllers\HomeController;
+use App\Http\Controllers\OrderController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\FoodController;
-use App\Http\Controllers\OrderController;
-use App\Http\Controllers\HomeController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -15,7 +15,6 @@ Route::get('/', [HomeController::class, 'home'])->name('home');
 Route::get('/menu', [FoodController::class, 'menu'])->name('menu');
 Route::get('/cart', [OrderController::class, 'cart'])->name('cart');
 Route::post('/order/confirm', [OrderController::class, 'confirm'])->name('order.confirm');
-
 
 Route::get('/dashboard', function () {
     return view('dashboard');
@@ -33,10 +32,9 @@ Route::middleware('auth')->group(function () {
     Route::resource('category', CategoryController::class);
 
     Route::resource('food', App\Http\Controllers\FoodController::class);
-    
+
     Route::resource('orders', App\Http\Controllers\OrderController::class);
     Route::resource('order', OrderController::class);
 });
 
 require __DIR__.'/auth.php';
-

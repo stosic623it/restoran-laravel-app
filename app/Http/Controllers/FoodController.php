@@ -3,17 +3,12 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\FoodStoreRequest;
-use App\Http\Requests\FoodUpdateRequest;
-use App\Models\Food;
 use App\Models\Category;
-use Illuminate\Http\RedirectResponse;
+use App\Models\Food;
 use Illuminate\Http\Request;
-use Illuminate\View\View;
 
 class FoodController extends Controller
 {
-
-
     public function index(Request $request)
     {
         $food = Food::all();
@@ -26,6 +21,7 @@ class FoodController extends Controller
     public function create(Request $request)
     {
         $categories = \App\Models\Category::all();
+
         return view('food.create', compact('categories'));
     }
 
@@ -48,6 +44,7 @@ class FoodController extends Controller
     public function edit(Food $food)
     {
         $categories = \App\Models\Category::all();
+
         return view('food.edit', compact('food', 'categories'));
     }
 
@@ -59,19 +56,20 @@ class FoodController extends Controller
             'price' => 'required|integer|min:0',
             'category_id' => 'required|exists:categories,id',
         ]);
-        
+
         $food->update($request->all());
-        
+
         return redirect()->route('food.show', $food->id)
             ->with('success', 'Proizvod je uspesno izmenjen!');
     }
+
     public function destroy(Request $request, Food $food)
     {
         $food->delete();
 
         return redirect()->route('food.index');
     }
-    
+
     // USE CASE
     public function menu(Request $request)
     {
@@ -88,6 +86,4 @@ class FoodController extends Controller
             'categories' => $categories,
         ]);
     }
-
-
 }

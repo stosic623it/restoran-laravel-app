@@ -5,9 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\CategoryStoreRequest;
 use App\Http\Requests\CategoryUpdateRequest;
 use App\Models\Category;
-use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
-use Illuminate\View\View;
 
 class CategoryController extends Controller
 {
@@ -30,9 +28,9 @@ class CategoryController extends Controller
         $request->validate([
             'name' => 'required|string|max:100',
         ]);
-        
+
         Category::create($request->all());
-        
+
         return redirect()->route('category.index')
             ->with('success', 'Kategorija kreirana uspesno!');
     }
@@ -40,6 +38,7 @@ class CategoryController extends Controller
     public function show(Request $request, Category $category)
     {
         $category->load('food');
+
         return view('category.show', compact('category'));
 
     }
@@ -56,9 +55,9 @@ class CategoryController extends Controller
         $request->validate([
             'name' => 'required|string|max:100',
         ]);
-        
+
         $category->update($request->all());
-        
+
         return redirect()->route('category.show', $category->id)
             ->with('success', 'Kategorija uspesno izmenjena!');
     }

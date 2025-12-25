@@ -44,5 +44,4 @@ class Food extends Model
     {
         return $this->belongsToMany(Order::class);
     }
-
 }
