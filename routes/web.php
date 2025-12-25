@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\FoodController;
@@ -29,7 +30,8 @@ Route::middleware('auth')->group(function () {
     Route::post('/order/confirm', [OrderController::class, 'confirm'])->name('order.confirm');
 
     Route::resource('categories', App\Http\Controllers\CategoryController::class);
-    
+    Route::resource('category', CategoryController::class);
+
     Route::resource('food', App\Http\Controllers\FoodController::class);
     
     Route::resource('orders', App\Http\Controllers\OrderController::class);

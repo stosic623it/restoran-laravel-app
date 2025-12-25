@@ -29,4 +29,9 @@ class Category extends Model
             'id' => 'integer',
         ];
     }
+
+    public function food()
+    {
+        return $this->hasMany(Food::class, 'category_id');
+    }
 }

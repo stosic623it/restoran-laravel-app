@@ -27,18 +27,21 @@ class CategoryController extends Controller
 
     public function store(CategoryStoreRequest $request)
     {
-        $category = Category::create($request->validated());
-
-        $request->session()->flash('category.id', $category->id);
-
-        return redirect()->route('categories.index');
+        $request->validate([
+            'name' => 'required|string|max:100',
+        ]);
+        
+        Category::create($request->all());
+        
+        return redirect()->route('category.index')
+            ->with('success', 'Kategorija kreirana uspesno!');
     }
 
     public function show(Request $request, Category $category)
     {
-        return view('category.show', [
-            'category' => $category,
-        ]);
+        $category->load('food');
+        return view('category.show', compact('category'));
+
     }
 
     public function edit(Request $request, Category $category)
@@ -50,11 +53,14 @@ class CategoryController extends Controller
 
     public function update(CategoryUpdateRequest $request, Category $category)
     {
-        $category->update($request->validated());
-
-        $request->session()->flash('category.id', $category->id);
-
-        return redirect()->route('categories.index');
+        $request->validate([
+            'name' => 'required|string|max:100',
+        ]);
+        
+        $category->update($request->all());
+        
+        return redirect()->route('category.show', $category->id)
+            ->with('success', 'Kategorija uspesno izmenjena!');
     }
 
     public function destroy(Request $request, Category $category)
