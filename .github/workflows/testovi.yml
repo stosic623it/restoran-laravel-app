@@ -38,18 +38,22 @@ jobs:
       - name: Instalacija composer paketa
         run: composer install --prefer-dist --no-progress --no-interaction
 
-      # 5. Env fajl
+      # 5. Build Assets
+      - name: Build Assets
+        run: npm run build
+
+      # 6. Env fajl
       - name: Kopiranje .env.example u .env fajl
         run: cp .env.example .env
 
-      # 6. App key
+      # 7. App key
       - name: Generisanje aplikacijskog kljuca
         run: php artisan key:generate
 
-      # 7. Laravel Pint
+      # 8. Laravel Pint
       - name: Provera stila koda (Pint)
         run: ./vendor/bin/pint
 
-      # 8. Testovi
+      # 9. Testovi
       - name: Pokretanje testova
         run: php artisan test
