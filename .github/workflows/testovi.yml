@@ -46,14 +46,10 @@ jobs:
       - name: Generisanje aplikacijskog kljuca
         run: php artisan key:generate
 
-      # 7. Migracije (SQLite – test okruženje)
-      - name: Pokretanje migracija
-        run: php artisan migrate --env=testing
-
-      # 8. Laravel Pint
+      # 7. Laravel Pint
       - name: Provera stila koda (Pint)
         run: ./vendor/bin/pint
 
-      # 9. Testovi
+      # 8. Testovi
       - name: Pokretanje testova
         run: php artisan test
