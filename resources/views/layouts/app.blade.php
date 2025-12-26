@@ -12,9 +12,9 @@
         <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" />
 
         <!-- Scripts -->
-        @if (!app()->runningUnitTests())
+        <!-- @if (!app()->runningUnitTests()) -->
             @vite(['resources/css/app.css', 'resources/js/app.js'])
-        @endif
+        <!-- @endif -->
 
     </head>
     <body class="font-sans antialiased">
