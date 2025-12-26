@@ -13,19 +13,19 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      # 1. Checkout koda
+      # Checkout koda
       - name: Provera koda
         uses: actions/checkout@v4
 
-      # 2. PHP setup
+      # PHP setup
       - name: Podesavanje PHP-a
         uses: shivammathur/setup-php@v2
         with: 
-          php-version: '8.2'
-          extensions: mbstring, pdo, sqlite
+          php-version: '8.3'
+          extensions: json, curl, sqlite3
           coverage: none
 
-      # 3. Cache composer paketa
+      # Cache composer paketa
       - name: Kes composer zavisnosti
         uses: actions/cache@v4
         with: 
@@ -34,26 +34,22 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-composer-
 
-      # 4. Instalacija dependencija
+      # Instalacija dependencija
       - name: Instalacija composer paketa
         run: composer install --prefer-dist --no-progress --no-interaction
 
-      # 5. Build Assets
-      - name: Build Assets
-        run: npm run build
-
-      # 6. Env fajl
+      # Env fajl
       - name: Kopiranje .env.example u .env fajl
         run: cp .env.example .env
 
-      # 7. App key
+      # App key
       - name: Generisanje aplikacijskog kljuca
         run: php artisan key:generate
 
-      # 8. Laravel Pint
-      - name: Provera stila koda (Pint)
-        run: ./vendor/bin/pint
-
-      # 9. Testovi
+      # Testovi
       - name: Pokretanje testova
         run: php artisan test
+
+      # Laravel Pint
+      - name: Provera stila koda (Pint)
+        run: ./vendor/bin/pint
