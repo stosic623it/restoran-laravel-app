@@ -19,6 +19,7 @@ class ViewMenuTest extends TestCase
             'name' => 'Margherita',
             'description' => 'Test pizza',
             'price' => 800,
+            'image' => 'margarita-pizza.jpg',
             'category_id' => $category->id,
         ]);
 
