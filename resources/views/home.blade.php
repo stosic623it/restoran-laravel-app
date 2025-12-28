@@ -1,4 +1,6 @@
-<x-app-layout>
+@extends('layouts.public')
+
+@section('content')
     <div class="max-w-4xl mx-auto py-16 px-4">
 
         <!-- NASLOV -->
@@ -20,7 +22,6 @@
                         <h2 class="text-3xl font-bold text-gray-800 mb-4">
                             {{ $jelo->name }}
                         </h2>
-                        
                     </div>
 
                     <!-- OPIS JELA -->
@@ -37,7 +38,6 @@
                                 {{ $jelo->price }} RSD
                             </div>
                         @endif
-                        
                     </div>
 
                 </div>
@@ -62,4 +62,4 @@
         </div>
 
     </div>
-</x-app-layout>
+@endsection
