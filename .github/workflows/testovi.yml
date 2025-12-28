@@ -50,12 +50,4 @@ jobs:
       - name: Pokretanje testova
         run: php artisan test
 
-      # Provera
-      - name: Provera da li server radi
-        run: |
-          php artisan serve &
-          sleep 3
-          curl -s http://127.0.0.1:8000/menu | head -20
-          echo "✅Server uspesno pokrenut!"
-
 
