@@ -1,6 +1,4 @@
-@extends('layouts.public')
-
-@section('content')
+<x-app-layout>
     <div class="max-w-7xl mx-auto py-10 px-4">
 
         <!-- Naziv restorana -->
@@ -102,4 +100,4 @@
 
         </div>
     </div>
-@endsection
+</x-app-layout>
