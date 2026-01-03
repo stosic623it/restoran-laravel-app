@@ -23,7 +23,7 @@ class FoodStoreRequest extends FormRequest
             'name' => ['required', 'string', 'max:150'],
             'description' => ['required', 'string'],
             'price' => ['required', 'integer'],
-            'category_id' => ['required', 'integer', 'exists:Category,id'],
+            'category_id' => ['required', 'integer', 'exists:categories,id'],
         ];
     }
 }
