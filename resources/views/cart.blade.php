@@ -1,38 +1,82 @@
-<x-app-layout>
-    <div class="max-w-4xl mx-auto py-10 px-4">
+@extends('layouts.public')
 
-        <h1 class="text-3xl font-bold mb-6">🛒 Tvoja narudzbina</h1>
+@section('content')
 
-        @if (!$order || $order->foods->isEmpty())
-        <p class="text-gray-500">Tvoja korpa je prazna.</p>
-        <a href="{{ route('menu') }}"
-            class="inline-block mt-4 text-blue-600 hover:underline">
+<div class="container py-5">
+
+    <h1 class="fw-bold mb-4">🛒 Tvoja narudžbina</h1>
+
+    @if (!$order || $order->foods->isEmpty())
+        <p class="text-muted">Tvoja korpa je prazna.</p>
+
+        <a href="{{ route('menu') }}" class="btn btn-link px-0">
             ← Nazad na meni
         </a>
-        @else
+    @else
 
-        <div class="bg-white border rounded-lg shadow p-6 mb-6">
-            @foreach ($order->foods as $food)
-            <div class="flex justify-between border-b py-3">
-                <span>{{ $food->name }}</span>
-                <span class="font-semibold">{{ $food->price }} RSD</span>
-            </div>
-            @endforeach
+        <!-- LISTA PROIZVODA -->
+        <div class="card shadow-sm mb-4">
+            <div class="card-body">
 
-            <div class="flex justify-between text-xl font-bold mt-4">
-                <span>Ukupno:</span>
-                <span>{{ $order->total_price }} RSD</span>
+                @foreach ($order->foods as $food)
+                    <div class="row align-items-center border-bottom py-3">
+
+                        <!-- SLIKA -->
+                        <div class="col-3 col-md-2">
+                            <img
+                                src="{{ $food->image 
+                                    ? asset('images/' . $food->image) 
+                                    : 'https://via.placeholder.com/150' }}"
+                                class="img-fluid rounded"
+                                alt="{{ $food->name }}"
+                                style="object-fit: cover;"
+                            >
+                        </div>
+
+                        <!-- NAZIV -->
+                        <div class="col-6 col-md-6">
+                            <h5 class="mb-1">{{ $food->name }}</h5>
+                            <small class="text-muted">
+                                Cena: {{ $food->price }} RSD
+                            </small>
+                        </div>
+
+                        <!-- KOLIČINA (FIKSNA) -->
+                        <div class="col-3 col-md-2 text-center">
+                            <span class="badge bg-secondary">
+                                x 1
+                            </span>
+                        </div>
+
+                        <!-- UKUPNO PO PROIZVODU -->
+                        <div class="col-md-2 text-end fw-bold">
+                            {{ $food->price }} RSD
+                        </div>
+
+                    </div>
+                @endforeach
+
             </div>
         </div>
 
+        <!-- UKUPNA CENA -->
+        <div class="d-flex justify-content-between align-items-center mb-4">
+            <h4 class="fw-bold mb-0">Ukupno:</h4>
+            <h4 class="fw-bold text-success mb-0">
+                {{ $order->total_price }} RSD
+            </h4>
+        </div>
+
+        <!-- POTVRDA -->
         <form method="POST" action="{{ route('order.confirm') }}">
             @csrf
-            <button
-                class="bg-green-600 hover:bg-green-700 text-white px-8 py-3 rounded-lg text-lg font-semibold">
-                Potvrdi porudzbinu
+            <button class="btn btn-success btn-lg px-5">
+                ✔ Potvrdi porudžbinu
             </button>
         </form>
 
-        @endif
-    </div>
-</x-app-layout>
+    @endif
+
+</div>
+
+@endsection

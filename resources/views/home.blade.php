@@ -1,65 +1,71 @@
-<x-app-layout>
-    <div class="max-w-4xl mx-auto py-16 px-4">
+@extends('layouts.public')
 
-        <!-- NASLOV -->
-        <h1 class="text-4xl font-bold text-center mb-20">
+@section('content')
+
+<div class="container py-5">
+
+    <!-- NASLOV -->
+    <div class="text-center mb-5">
+        <h1 class="display-4 fw-bold">
             Dobrodošli u restoran <br>
-            <span class="italic text-orange-600">„Ukusni Zalogaj"</span>
+            <span class="text-warning fst-italic">Ukusni Zalogaj</span>
         </h1>
+        <p class="text-muted mt-3">
+            Izdvajamo neka od naših najpopularnijih jela
+        </p>
+    </div>
 
-        <!-- ISTAKNUTA JELA -->
-        <div class="space-y-24">
-            @foreach ($istaknutaJela as $jelo)
-                <div class="bg-white rounded-2xl shadow-md p-10 transition-all duration-300 hover:shadow-lg">
-                    
-                    <!-- NASLOV JELA -->
-                    <div class="text-center mb-10">
-                        <div class="inline-flex items-center justify-center w-16 h-16 bg-orange-100 rounded-full mb-6">
-                            <span class="text-2xl">🍽️</span>
-                        </div>
-                        <h2 class="text-3xl font-bold text-gray-800 mb-4">
+    <!-- ISTAKNUTA JELA -->
+    @foreach ($istaknutaJela as $jelo)
+        <div class="card mb-5 shadow-sm border-0">
+            <div class="row g-0 align-items-center">
+
+                <!-- SLIKA -->
+                <div class="col-md-5">
+                    <img 
+                        src="{{ asset('images/' . $jelo->image) }}" 
+                        class="img-fluid rounded-start"
+                        alt="{{ $jelo->name }}"
+                        style="object-fit: cover; height: 100%;"
+                    >
+                </div>
+
+                <!-- SADRŽAJ -->
+                <div class="col-md-7">
+                    <div class="card-body p-4">
+
+                        <h2 class="card-title fw-bold mb-3">
                             {{ $jelo->name }}
                         </h2>
-                        
-                    </div>
 
-                    <!-- OPIS JELA -->
-                    <div class="mb-10">
-                        <p class="text-gray-700 text-lg leading-relaxed text-center max-w-3xl mx-auto">
+                        <p class="card-text text-muted mb-4">
                             {{ $jelo->description }}
                         </p>
-                    </div>
 
-                    <!-- INFORMACIJE -->
-                    <div class="flex flex-col md:flex-row justify-between items-center gap-6 mt-12 pt-10 border-t border-gray-100">
                         @if($jelo->price)
-                            <div class="text-3xl font-bold text-orange-600">
+                            <div class="fs-3 fw-bold text-warning">
                                 {{ $jelo->price }} RSD
                             </div>
                         @endif
-                        
+
                     </div>
-
                 </div>
-            @endforeach
-        </div>
 
-        <!-- DUGME MENI -->
-        <div class="text-center mt-28">
-            <div class="mb-8">
-                <p class="text-gray-600 text-lg">
-                    Otkrijte još mnogo ukusnih jela u našem kompletnom meniju
-                </p>
             </div>
-            <a href="{{ route('menu') }}"
-               class="inline-flex items-center bg-orange-600 hover:bg-orange-700 text-white
-                      px-16 py-5 text-xl font-bold rounded-xl shadow-lg
-                      transition duration-300 transform hover:scale-[1.02]">
-                <span class="mr-4 text-2xl">📜</span>
-                PREGLEDAJ CELI MENI
-                <span class="ml-4 text-2xl">→</span>
-            </a>
         </div>
+    @endforeach
 
+    <!-- DUGME MENI -->
+    <div class="text-center mt-5">
+        <p class="text-muted mb-4">
+            Pogledajte kompletnu ponudu jela i pića
+        </p>
+
+        <a href="{{ route('menu') }}" class="btn btn-warning btn-lg px-5 fw-bold">
+            📜 Pogledaj ceo meni
+        </a>
     </div>
-</x-app-layout>
+
+</div>
+
+@endsection

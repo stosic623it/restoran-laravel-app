@@ -1,103 +1,123 @@
-<x-app-layout>
-    <div class="max-w-7xl mx-auto py-10 px-4">
+@extends('layouts.public')
 
-        <!-- Naziv restorana -->
-        <div class="text-center mb-10">
-            <h1 class="text-4xl font-bold text-gray-800">🍽️ Meni Restorana "Ukusni Zalogaj"</h1>
-            <p class="text-gray-500 mt-2">
-                Ukusna hrana, kvalitetno dostoprimstvo i brzo narucivanje
-            </p>
+@section('content')
+
+<div class="container py-5">
+
+    <!-- NASLOV -->
+    <div class="text-center mb-5">
+        <h1 class="fw-bold display-5">🍽️ Meni restorana "Ukusni Zalogaj"</h1>
+        <p class="text-muted mt-2">
+            Ukusna hrana, kvalitetno gostoprimstvo i brzo naručivanje
+        </p>
+    </div>
+
+    <!-- KORPA -->
+    @auth
+        <div class="text-end mb-4">
+            <a href="{{ route('cart') }}" class="btn btn-dark">
+                🛒 Korpa
+            </a>
         </div>
+    @endauth
 
-        @auth
-            <div class="text-right mb-6">
-                <a href="{{ route('cart') }}"
-                   class="bg-gray-800 text-white px-4 py-2 rounded hover:bg-gray-900">
-                    🛒 Korpa
-                </a>
-            </div>
-        @endauth
+    <!-- SUCCESS PORUKA -->
+    @if (session('success'))
+        <div class="alert alert-success">
+            {{ session('success') }}
+        </div>
+    @endif
 
-        @if (session('success'))
-            <div class="bg-green-100 text-green-700 px-4 py-3 rounded mb-6">
-                {{ session('success') }}
-            </div>
-        @endif
+    <div class="row g-4">
 
-        <!-- GLAVNI LAYOUT -->
-        <div class="grid grid-cols-1 lg:grid-cols-4 gap-8">
+        <!-- SIDEBAR -->
+        <aside class="col-lg-3">
+            <div class="card shadow-sm">
+                <div class="card-body">
+                    <h5 class="fw-bold mb-3">Kategorije</h5>
 
-            <!-- SIDEBAR -->
-            <aside class="lg:col-span-1 bg-white border rounded-lg shadow p-5 h-fit">
-                <h3 class="text-xl font-semibold text-gray-800 mb-4">
-                    Kategorije
-                </h3>
-
-                <ul class="space-y-2">
-                    <li>
-                        <a href="{{ route('menu') }}"
-                           class="block px-3 py-2 rounded hover:bg-gray-100 text-gray-700">
-                            Sve
-                        </a>
-                    </li>
-
-                    @foreach($categories as $category)
-                        <li>
-                            <a href="{{ route('menu', ['category' => $category->id]) }}"
-                               class="block px-3 py-2 rounded hover:bg-gray-100 text-gray-700">
-                                {{ $category->name }}
+                    <ul class="list-unstyled">
+                        <li class="mb-2">
+                            <a href="{{ route('menu') }}" class="text-decoration-none text-dark">
+                                Sve
                             </a>
                         </li>
-                    @endforeach
-                </ul>
-            </aside>
 
-            <!-- MENI -->
-            <main class="lg:col-span-3">
+                        @foreach($categories as $category)
+                            <li class="mb-2">
+                                <a href="{{ route('menu', ['category' => $category->id]) }}"
+                                   class="text-decoration-none text-dark">
+                                    {{ $category->name }}
+                                </a>
+                            </li>
+                        @endforeach
+                    </ul>
+                </div>
+            </div>
+        </aside>
 
-                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-                    @foreach ($foods as $food)
-                        <div class="bg-white border rounded-lg shadow hover:shadow-lg transition p-5 flex flex-col">
+        <!-- MENI -->
+        <main class="col-lg-9">
+            <div class="row g-4">
 
-                            <div class="mb-3">
-                                <span class="text-sm text-gray-500">
+                @foreach ($foods as $food)
+                    <div class="col-sm-6 col-lg-4">
+                        <div class="card h-100 shadow-sm border-0">
+
+                            <div class="card-body d-flex flex-column">
+
+                                <!-- KATEGORIJA -->
+                                <span class="text-muted small mb-1">
                                     {{ $food->category->name ?? 'Food' }}
                                 </span>
-                                <h2 class="text-xl font-semibold text-gray-800">
+
+                                <!-- NAZIV -->
+                                <h5 class="fw-bold mb-2">
                                     {{ $food->name }}
-                                </h2>
-                            </div>
+                                </h5>
 
-                            <p class="text-gray-600 flex-grow">
-                                {{ $food->description }}
-                            </p>
+                                <!-- MALA SLIKA -->
+                                <img
+                                    src="{{ asset('images/' . $food->image) }}"
+                                    alt="{{ $food->name }}"
+                                    class="img-fluid rounded mb-3"
+                                    style="height: 120px; object-fit: cover;"
+                                >
 
-                            <div class="mt-4 flex items-center justify-between">
-                                <span class="text-lg font-bold text-gray-800">
-                                    {{ $food->price }} RSD
-                                </span>
+                                <!-- OPIS -->
+                                <p class="text-muted small flex-grow-1">
+                                    {{ $food->description }}
+                                </p>
 
-                                @auth
-                                    <form method="POST" action="{{ route('order.add', $food) }}">
-                                        @csrf
-                                        <button
-                                            class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded transition">
-                                            Add
-                                        </button>
-                                    </form>
-                                @else
-                                    <span class="text-sm text-gray-400">
-                                        Login to order
+                                <!-- CENA + DUGME -->
+                                <div class="d-flex justify-content-between align-items-center mt-3">
+                                    <span class="fw-bold">
+                                        {{ $food->price }} RSD
                                     </span>
-                                @endauth
+
+                                    @auth
+                                        <form method="POST" action="{{ route('order.add', $food) }}">
+                                            @csrf
+                                            <button class="btn btn-primary btn-sm">
+                                                Dodaj
+                                            </button>
+                                        </form>
+                                    @else
+                                        <span class="text-muted small">
+                                            Prijavi se
+                                        </span>
+                                    @endauth
+                                </div>
+
                             </div>
-
                         </div>
-                    @endforeach
-                </div>
+                    </div>
+                @endforeach
 
-            </main>
+            </div>
+        </main>
 
-        </div>
     </div>
-</x-app-layout>
+</div>
+
+@endsection
