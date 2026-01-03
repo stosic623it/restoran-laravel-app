@@ -37,7 +37,7 @@
                         </div>
                         
                         <div class="d-flex justify-content-between">
-                            <a href="{{ route('category.show', $category->id) }}" class="btn btn-secondary">
+                            <a href="{{ route('category.index') }}" class="btn btn-secondary">
                                 Cancel
                             </a>
                             <button type="submit" class="btn btn-primary">

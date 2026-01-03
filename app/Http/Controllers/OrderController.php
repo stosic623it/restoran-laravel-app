@@ -25,13 +25,14 @@ class OrderController extends Controller
 
     public function store(OrderStoreRequest $request)
     {
-        $request->validate([
-            'user_id' => 'required|integer|min:1',
+        $validated = $request ->validate([
             'total_price' => 'required|integer|min:0',
             'status' => 'required|in:pending,processing,completed,cancelled',
         ]);
 
-        $order = Order::create($request->all());
+        $validated['user_id'] = Auth::id();
+
+        $order = Order::create($validated);
 
         return redirect()->route('order.show', $order->id)
             ->with('success', 'Narudzbina uspesno kreirana!');
@@ -53,13 +54,10 @@ class OrderController extends Controller
 
     public function update(OrderUpdateRequest $request, Order $order)
     {
-        $request->validate([
-            'user_id' => 'required|integer|min:1',
-            'total_price' => 'required|integer|min:0',
-            'status' => 'required|in:pending,processing,completed,cancelled',
+        $order->update([
+            'status' => $request->status,
+            'total_price' => $request->total_price,
         ]);
-
-        $order->update($request->all());
 
         return redirect()->route('order.show', $order->id)
             ->with('success', 'Narudzbina uspesno izmenjena!');

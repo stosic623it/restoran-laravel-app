@@ -24,18 +24,6 @@
                         @csrf
                         
                         <div class="mb-3">
-                            <label for="user_id" class="form-label">User ID *</label>
-                            <input type="number" 
-                                   class="form-control" 
-                                   id="user_id" 
-                                   name="user_id" 
-                                   value="{{ old('user_id') }}" 
-                                   placeholder="Upisi user ID" 
-                                   min="1" 
-                                   required>
-                        </div>
-                        
-                        <div class="mb-3">
                             <label for="total_price" class="form-label">Ukupna cena *</label>
                             <input type="number" 
                                    class="form-control" 

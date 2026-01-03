@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Support\Facades\Auth;
 
 class OrderStoreRequest extends FormRequest
 {
@@ -20,9 +21,14 @@ class OrderStoreRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'user_id' => ['required', 'integer', 'exists:User,id'],
             'total_price' => ['required', 'integer'],
             'status' => ['required', 'string', 'max:50'],
         ];
     }
+    public function prepareForValidation()
+{
+    $this->merge([
+        'user_id' => Auth::id(), // Automatski dodaj user_id
+    ]);
+}
 }

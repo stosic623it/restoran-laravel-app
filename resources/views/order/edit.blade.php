@@ -24,16 +24,6 @@
                         @csrf
                         @method('PUT')
                         
-                        <div class="mb-3">
-                            <label for="user_id" class="form-label">User ID *</label>
-                            <input type="number" 
-                                   class="form-control" 
-                                   id="user_id" 
-                                   name="user_id" 
-                                   value="{{ old('user_id', $order->user_id) }}" 
-                                   min="1" 
-                                   required>
-                        </div>
                         
                         <div class="mb-3">
                             <label for="total_price" class="form-label">Ukupna cena *</label>
@@ -58,7 +48,7 @@
                         </div>
                         
                         <div class="d-flex justify-content-between">
-                            <a href="{{ route('order.show', $order->id) }}" class="btn btn-secondary">
+                            <a href="{{ route('order.index') }}" class="btn btn-secondary">
                                 Cancel
                             </a>
                             <button type="submit" class="btn btn-primary">

@@ -68,7 +68,7 @@
                         </div>
                         
                         <div class="d-flex justify-content-between">
-                            <a href="{{ route('food.show', $food->id) }}" class="btn btn-secondary">
+                            <a href="{{ route('food.index') }}" class="btn btn-secondary">
                                 Cancel
                             </a>
                             <button type="submit" class="btn btn-primary">
